@@ -46,6 +46,7 @@ public class LifecyclePredicate<T> implements Predicate<T>, LifecycleObserver {
     void onStateChange() {
         if (lifecycleOwner != null && lifecycleOwner.getLifecycle().getCurrentState() == Lifecycle.State.DESTROYED) {
             // No memory leaks please
+            lifecycleOwner.getLifecycle().removeObserver(this);
             lifecycleOwner = null;
         }
     }
